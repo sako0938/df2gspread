@@ -14,6 +14,7 @@ import sys
 import json
 
 from oauth2client import file, client, tools
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Load logging before anything else
 logr = logging.getLogger('df2gspread')
@@ -48,6 +49,9 @@ def get_credentials(credentials=None, client_secret_file=CLIENT_SECRET_FILE, ref
         `~oauth2client.client.OAuth2Credentials`: google credentials object
 
     """
+
+    scope = SCOPES
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(client_secret_file, scope)
 
     # if the utility was provided credentials just return those
     if credentials:
